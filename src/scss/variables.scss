@@ -1,0 +1,24 @@
+//screenSizes
+$phone-min: 320px;
+$phone-only: 599px;
+$tablet-portrait-up: 600px;
+$tablet-landscape-up: 900px;
+$desktop-up: 1200px;
+$big-desktop-up: 1800px;
+
+
+//header
+$desktop-header-height: 91px;
+$desktop-static-home-height:$desktop-header-height;
+$phone-header-height: 51px;
+
+//aspect ration
+$home-banner-aspect-ratio-desktop: 2.49;
+$home-banner-aspect-ratio-mobile: 1.285;
+
+
+//colors
+$color-medium-grey: #636363;
+$color-primary-green: #a3c93a;
+$color-white: #ffffff;
+$color-primary-black: #252525;

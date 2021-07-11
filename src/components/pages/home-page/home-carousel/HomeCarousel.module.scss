@@ -1,0 +1,40 @@
+@import "../../../../scss/mixins";
+@import "../../../../scss/variables";
+
+.sliderContainer{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  > h1{
+    color: white !important;
+  }
+
+  .sliderContainerOne{
+    padding: 7% 4%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .card{
+       background-color: $color-primary-green;
+       width: 100%;
+       max-width: 50.7vw;
+       padding: 5%;
+       h1{
+         color: white;
+         font-size: 4.06vw;
+         line-height: 4.06vw;
+       }
+       p{
+        margin-top: 3.5rem;
+        color: white;
+        font-size: 1.4vw;
+        line-height: 23px;
+      }
+    }
+
+  }
+
+}

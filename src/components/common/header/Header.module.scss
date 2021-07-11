@@ -1,0 +1,82 @@
+@import "../../../scss/mixins";
+@import "../../../scss/variables";
+
+.headerWrapper{
+  width: 100%;
+  position: fixed;
+  display: flex;
+  z-index: 200;
+  align-items: center;
+  background-color: $color-white;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  height: $desktop-header-height;
+  padding: 2rem 5rem;
+
+  .container{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    .logo{
+       flex: 2;
+       display: flex;
+       img {
+         width: 204px;
+         height: 31px;
+       }
+    }
+    .navLinks{
+      flex: 3;
+
+      ul{
+        display: flex;
+        width: 100%;
+        padding: 0;
+        justify-content: space-evenly;
+
+        li{
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: $color-medium-grey;
+          cursor: pointer;
+          &.active{
+            color: $color-primary-green;
+          }
+          &:hover{
+            color: $color-primary-green;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  @include for-size(tablet-portrait-up){
+    .container{
+      flex-direction: column;
+
+      .navLinks{
+        width: 100%;
+      }
+    }
+  }
+
+  @include for-size(tablet-landscape-up){
+    padding: 2rem 10rem;
+
+    .container{
+      flex-direction: row;
+
+      .navLinks{
+        width: 100%
+      }
+    }
+
+  }
+
+}

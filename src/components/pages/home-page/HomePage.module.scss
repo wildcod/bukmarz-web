@@ -1,0 +1,23 @@
+@import "../../../scss/mixins";
+@import "../../../scss/variables";
+
+// banner AR => banner height
+$desktop-banner-height: calc(100vw / #{$home-banner-aspect-ratio-desktop});
+$mobile-banner-height: calc(100vw / #{$home-banner-aspect-ratio-mobile});
+
+.homePage{
+  .carouselWrapper{
+    width: 100%;
+    background-color: gray;
+    @include for-size(tablet-portrait-up) {
+      margin-top: 0;
+      height: calc(#{$desktop-banner-height} + #{$desktop-static-home-height - 6});
+    }
+    @include for-size(phone-only) {
+      z-index: 0;
+      margin-top: 0;
+      height: calc(#{$mobile-banner-height} + #{$phone-header-height});
+    }
+
+  }
+}

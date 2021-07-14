@@ -1,0 +1,14 @@
+@import "../../../scss/mixins";
+@import "../../../scss/variables";
+
+.buttonContainer{
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: $color-primary-green;
+  color: $color-white;
+  padding: 10px 25px;
+  font-size: 18px;
+  line-height: 22px;
+  border-radius: 4px;
+}

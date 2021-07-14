@@ -1,0 +1,78 @@
+@import "../../../../scss/mixins";
+@import "../../../../scss/variables";
+
+.homeAboutUs{
+  width: 100%;
+  min-height: 586px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15%;
+  background-color: $color-light-grey;
+
+  .card{
+    width: 50%;
+    padding: 6%;
+    max-width: 533px;
+    background-color: $color-black;
+    min-height: 586px;
+
+    h2{
+      font-size: 46px;
+      line-height: 41px;
+      font-weight: 300;
+      color: $color-white;
+    }
+
+    .description{
+      h5{
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 300;
+        color: $color-medium-grey-1;
+      }
+    }
+    .readMore{
+      width: 140px;
+
+      > button{
+        font-size: 13px;
+        border-radius: 30px;
+      }
+
+    }
+  }
+}
+
+@media (max-width: 900px) {
+     .homeAboutUs{
+       padding: 0;
+       width: 100%;
+       .card{
+         padding: 4rem 2rem;
+         width: 100%;
+         background-color: $color-dark-grey;
+         max-width: unset;
+
+         h2{
+           font-size: 40px;
+           text-align: center;
+         }
+
+         .description{
+           h5,p{
+             font-size: 18px;
+             text-align: center;
+           }
+           p{
+             font-size: 14px;
+             line-height: 23px;
+           }
+         }
+
+         .readMore{
+           margin: 0 auto;
+         }
+
+       }
+     }
+}

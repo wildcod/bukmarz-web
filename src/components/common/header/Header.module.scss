@@ -19,6 +19,12 @@
     align-items: center;
     flex-wrap: wrap;
     flex: 1;
+    .menuBar{
+      display: none;
+      @include for-size(phone-only){
+        display: block;
+      }
+    }
     .logo{
        flex: 2;
        display: flex;
@@ -26,6 +32,9 @@
          width: 204px;
          height: 31px;
        }
+      @include for-size(phone-only){
+        margin-left: 10px;
+      }
     }
     .navLinks{
       flex: 3;
@@ -52,8 +61,22 @@
 
       }
 
+      @include for-size(phone-only){
+        display: none;
+      }
+
     }
 
+  }
+
+  .mobileNavLinks{
+    padding: 2rem;
+    ul{
+      padding-left: 0;
+      li{
+        margin-bottom: 2rem;
+      }
+    }
   }
 
   @include for-size(tablet-portrait-up){
@@ -77,6 +100,11 @@
       }
     }
 
+  }
+
+  @include for-size(phone-only){
+    padding: 1rem;
+    height: $phone-header-height;
   }
 
 }

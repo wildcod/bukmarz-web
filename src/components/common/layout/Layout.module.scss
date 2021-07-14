@@ -3,4 +3,7 @@
 
 .layoutWrapper{
   margin-top: $desktop-header-height;
+  @include for-size(phone-only){
+    margin-top: $phone-header-height;
+  }
 }

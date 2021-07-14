@@ -327,3 +327,9 @@ blockquote + p {
 .slick-dots{
   bottom: 15px !important;
 }
+
+@media (max-width: 600px) {
+    .overflow-hide {
+        overflow: hidden;
+    }
+}

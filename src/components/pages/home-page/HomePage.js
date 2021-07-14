@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './HomePage.module.scss'
 import HomeCarousel from "./home-carousel/HomeCarousel";
+import HomeServices from "./home-services/HomeServices";
 
 const HomePage = () => {
     return (
@@ -8,6 +9,7 @@ const HomePage = () => {
             <div className={style.carouselWrapper}>
                 <HomeCarousel />
             </div>
+            <HomeServices />
         </div>
     );
 };

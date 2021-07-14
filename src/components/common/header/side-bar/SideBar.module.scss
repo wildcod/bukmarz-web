@@ -1,0 +1,24 @@
+@import "../../../../scss/mixins";
+@import "../../../../scss/variables";
+
+.sideBarContainer{
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   background: rgba(0, 0, 0, 0.1);
+   height: 100vh;
+
+   .innerContainer{
+     width: 80%;
+     height: 100vh;
+     background-color: $color-white;
+     padding: 1rem;
+   }
+
+   .header{
+     display: flex;
+     justify-content: flex-end;
+   }
+
+}

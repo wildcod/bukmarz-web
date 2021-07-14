@@ -28,7 +28,15 @@ const HomeCarousel = () => {
         slidesToShow: 1,
         nextArrow: <SlideArrow arrow={'right'}/>,
         prevArrow: <SlideArrow arrow={'left'}/>,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 599,  // for mobile
+                settings: {
+                    arrows: false,
+                    pauseOnFocus: true
+                }
+            }]
     };
     return (
         <Slider {...settings} className={style.sliderContainer}>

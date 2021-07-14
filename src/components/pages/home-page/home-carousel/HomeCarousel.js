@@ -12,6 +12,7 @@ const SlideArrow = (props) => {
     };
     return (
         <img
+            alt={'banner-images'}
             className={className}
             style={{ ...style, display: "block", transform: arrow === 'left' ? 'rotate(0deg)' : 'rotate(-180deg)' }}
             onClick={() => onArrowClick()}

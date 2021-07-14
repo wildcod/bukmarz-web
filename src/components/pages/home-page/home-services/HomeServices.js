@@ -23,7 +23,7 @@ const HomeServices = () => {
                             <div className={style.right}>
                                 <h5>{card.title}</h5>
                                 <p>{card.desc}</p>
-                                <a href={'#'}>
+                                <a href={'/'}>
                                     <span>Learn More...</span>
                                 </a>
                             </div>

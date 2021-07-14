@@ -22,7 +22,7 @@ const Footer = () => {
                           POSTS.map(post => (
                               <li key={post.title}>
                                   <img width={20} height={20} src={forwardIcon} alt={'forward-icon'}/>
-                                  <a>
+                                  <a href={'/'}>
                                       <span>{post.title} - <span className={style.date}>{post.date}</span></span>
                                   </a>
                               </li>

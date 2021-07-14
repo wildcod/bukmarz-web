@@ -35,7 +35,8 @@ const HomeCarousel = () => {
                 breakpoint: 599,  // for mobile
                 settings: {
                     arrows: false,
-                    pauseOnFocus: true
+                    pauseOnFocus: true,
+                    dots:false
                 }
             }]
     };

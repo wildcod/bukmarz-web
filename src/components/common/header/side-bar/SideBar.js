@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './SideBar.module.scss'
 import close from '../../../../assets/img/close.svg'
 
@@ -6,6 +6,13 @@ const SideBar = ({
  children,
  onClose
  }) => {
+    const [slideOutClassName, setSlideOutClassName] = useState(false)
+    const closeHandler = () => {
+        setSlideOutClassName(true)
+        setTimeout(() => {
+            onClose()
+        }, [600])
+    }
 
     useEffect(() => {
         document.body.classList.add('overflow-hide');
@@ -15,10 +22,10 @@ const SideBar = ({
     }, [])
 
     return (
-        <div className={style.sideBarContainer}>
+        <div className={`${style.sideBarContainer} ${slideOutClassName ? style.slideOutSideBar: ''}`}>
            <div className={style.innerContainer}>
                <div className={style.header}>
-                   <img onClick={onClose} src={close} width={20} height={20} alt={'close-icon'}/>
+                   <img onClick={closeHandler} src={close} width={20} height={20} alt={'close-icon'}/>
                </div>
                {children}
            </div>

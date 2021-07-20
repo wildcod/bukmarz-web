@@ -141,5 +141,35 @@
     }
 
   }
+  @include for-size(phone-only){
+
+    .banner{
+      padding: 6rem 2rem;
+      h1{
+        font-size: 46px;
+        line-height: 41px;
+        text-align: center;
+      }
+    }
+
+    .pricingContainer{
+      padding: 18% 4%;
+
+      h2{
+        font-size: 40px;
+        text-align: center;
+      }
+      p{
+        font-size: 20px;
+        line-height: 26px;
+        text-align: center;
+        padding-right: 0;
+      }
+
+      .plans{
+        grid-gap: 70px;
+      }
+    }
+  }
 
 }

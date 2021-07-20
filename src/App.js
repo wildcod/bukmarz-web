@@ -7,6 +7,10 @@ import {
     Route,
 } from "react-router-dom";
 import PricePage from "./components/pages/price-page/PricePage";
+import AboutPage from "./components/pages/about-page/AboutPage";
+import ServicesPage from "./components/pages/services-page/ServicesPage";
+import BlogPage from "./components/pages/blog-page/BlogPage";
+import ContactPage from "./components/pages/contact-page/ContactPage";
 
 function App() {
   return (
@@ -15,7 +19,11 @@ function App() {
            <Layout>
                <Switch>
                    <Route exact path={'/'}><HomePage /></Route>
-                   <Route exact path={'/price'}><PricePage /></Route>
+                   <Route path={'/price'}><PricePage /></Route>
+                   <Route path={'/about'}><AboutPage /></Route>
+                   <Route path={'/services'}><ServicesPage/></Route>
+                   <Route path={'/blog'}><BlogPage /></Route>
+                   <Route path={'/contact'}><ContactPage /></Route>
                </Switch>
            </Layout>
        </div>

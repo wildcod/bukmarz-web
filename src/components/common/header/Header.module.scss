@@ -45,18 +45,20 @@
         padding: 0;
         justify-content: space-evenly;
 
-        li{
+        li > a{
           font-size: 12px;
           font-weight: 700;
           text-transform: uppercase;
           color: $color-medium-grey;
           cursor: pointer;
-          &.active{
-            color: $color-primary-green;
-          }
           &:hover{
             color: $color-primary-green;
           }
+        }
+
+        li.active > a{
+          color: $color-primary-green;
+          text-decoration: none;
         }
 
       }

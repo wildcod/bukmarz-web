@@ -13,12 +13,12 @@ export const navLinks = [
         link: 'services'
     },
     {
-        displayName: 'News',
-        link: '/news'
+        displayName: 'Blog',
+        link: '/blog'
     },
     {
         displayName: 'Pricing',
-        link: '/pricing'
+        link: '/price'
     },
     {
         displayName: 'Contact',

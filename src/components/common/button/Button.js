@@ -3,10 +3,11 @@ import style from './Button.module.scss'
 
 const Button = ({
 label,
-className
+className,
+...rest
 }) => {
     return (
-        <button className={`${style.buttonContainer} ${className ? className : ''}`}>
+        <button {...rest} className={`${style.buttonContainer} ${className ? className : ''}`}>
             {label}
         </button>
     );

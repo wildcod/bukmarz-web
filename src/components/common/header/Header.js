@@ -4,10 +4,12 @@ import { navLinks } from '../../../constants'
 import Logo from '../../../assets/img/logo.png'
 import Menu from '../../../assets/img/menu.svg'
 import SideBar from "./side-bar/SideBar";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false)
-
+    const location = useLocation()
+    console.log('Location', location)
     const onCloseSideBar = () => {
         setOpenMenu(false)
     }
@@ -29,8 +31,10 @@ const Header = () => {
                      <ul>
                          {
                              navLinks.map((link => (
-                                 <li className={link.displayName === 'Home' ? style.active : ''}>
-                                     {link.displayName}
+                                 <li className={link.link === location?.pathname ? style.active : ''}>
+                                     <Link to={link.link}>
+                                         {link.displayName}
+                                     </Link>
                                  </li>
                              )))
                          }

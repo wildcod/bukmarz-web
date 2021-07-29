@@ -1,0 +1,36 @@
+@import "../../../scss/mixins";
+@import "../../../scss/variables";
+
+.dashBoardWrapper{
+  .navBar{
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    background-color:$color-primary-green;
+
+    ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      li {
+        color: $color-white;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        line-height: 17px;
+        padding: 1rem;
+        cursor: pointer;
+        margin-right: 20px;
+      }
+    }
+    > div{
+      display: flex;
+      align-items: center;
+      span{
+        font-size: 18px;
+        color: $color-white;
+      }
+    }
+
+  }
+}

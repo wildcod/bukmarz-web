@@ -2,18 +2,6 @@
 @import "../../../scss/variables";
 
 .pricePage{
-  .banner{
-    min-height: 215px;
-    background-color: $color-light-grey-1;
-    padding: 6rem 7rem;
-
-    h1{
-      font-size: 46px;
-      line-height: 41px;
-      color: $color-white;
-    }
-
-  }
 
   .pricingContainer{
     padding: 6%;
@@ -142,15 +130,6 @@
 
   }
   @include for-size(phone-only){
-
-    .banner{
-      padding: 6rem 2rem;
-      h1{
-        font-size: 46px;
-        line-height: 41px;
-        text-align: center;
-      }
-    }
 
     .pricingContainer{
       padding: 18% 4%;

@@ -324,12 +324,31 @@ blockquote + p {
     height: 100%;
 }
 
+.body-overflow{
+    overflow: hidden;
+}
+
 .slick-dots{
   bottom: 15px !important;
+}
+
+.ReactModalPortal > div{
+    z-index: 300;
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 @media (max-width: 600px) {
     .overflow-hide {
         overflow: hidden;
+    }
+    .ReactModal__Content{
+        width: 100vw;
+        height: 100vh;
+        border: none !important;
+        border-radius: 0px !important;
+    }
+    .ReactModal__Content > div{
+        min-width: unset;
+        min-height: unset;
     }
 }

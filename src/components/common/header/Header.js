@@ -5,9 +5,12 @@ import Logo from '../../../assets/img/logo.png'
 import Menu from '../../../assets/img/menu.svg'
 import SideBar from "./side-bar/SideBar";
 import { Link, useLocation } from "react-router-dom";
+import Modal from '../../common/Modal/Modal'
+import Auth from "../../auth";
 
-const Header = () => {
+const Header = ({ isLoggedIn = true }) => {
     const [openMenu, setOpenMenu] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const location = useLocation()
     console.log('Location', location)
     const onCloseSideBar = () => {
@@ -38,6 +41,18 @@ const Header = () => {
                                  </li>
                              )))
                          }
+                         {
+                           !isLoggedIn ?
+                               <li
+                                   onClick={() => setOpenModal(true)}>Sign Up/Login</li> :
+                               <li
+                                   className={'/dashboard' === location?.pathname ? style.active : ''}
+                               >
+                                   <Link to={'/dashboard'} >
+                                       Dashboard
+                                   </Link>
+                               </li>
+                         }
                      </ul>
                  </nav>
                </div>
@@ -54,10 +69,25 @@ const Header = () => {
                                         </li>
                                     )))
                                 }
+                                {
+                                    !isLoggedIn ?
+                                        <li onClick={() => setOpenModal(true)}>Sign Up/Login</li> :
+                                        <li>
+                                            <Link to={'/dashboard'} >
+                                                Dashboard
+                                            </Link>
+                                        </li>
+                                }
                             </ul>
                         </div>
                     </SideBar> : null
             }
+        <Modal
+            openModal={openModal}
+            onClose={() => setOpenModal(false)}
+        >
+            <Auth />
+        </Modal>
         </header>
     );
 };

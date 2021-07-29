@@ -11,6 +11,7 @@ import AboutPage from "./components/pages/about-page/AboutPage";
 import ServicesPage from "./components/pages/services-page/ServicesPage";
 import BlogPage from "./components/pages/blog-page/BlogPage";
 import ContactPage from "./components/pages/contact-page/ContactPage";
+import DashboardPage from "./components/pages/dashboard-page/Dashboard";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                    <Route path={'/services'}><ServicesPage/></Route>
                    <Route path={'/blog'}><BlogPage /></Route>
                    <Route path={'/contact'}><ContactPage /></Route>
+                   <Route path={'/dashboard'}><DashboardPage /></Route>
                </Switch>
            </Layout>
        </div>

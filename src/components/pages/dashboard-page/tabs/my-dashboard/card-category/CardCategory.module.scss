@@ -1,0 +1,140 @@
+@import "../../../../../../scss/mixins";
+@import "../../../../../../scss/variables";
+
+.cardCatWrapper{
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  background: #fff;
+  min-height: 100px;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  .body{
+    padding: 1.25rem;
+
+    .header{
+      display: flex;
+      padding: 5px 0 15px 0;
+      border-bottom: 1px solid rgba(0,0,0,.1);
+
+      > div{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > svg{
+          cursor: pointer;
+        }
+
+      }
+
+      .title{
+        flex: 6;
+        justify-content: flex-start;
+        background-color: $color-primary-green;
+        border-radius: 8px;
+        padding: 4px 5px;
+        > span{
+          color: $color-white;
+        }
+      }
+
+    }
+
+    .list{
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+          display: flex;
+          margin: 10px 0;
+
+          > .left{
+            flex: 9;
+            .bookmarkTitle{
+              display: flex;
+              align-items: center;
+              > img{
+                width: 16px;
+                height: 16px;
+                object-fit: contain;
+                margin-right: 5px;
+              }
+            }
+          }
+
+          > .right{
+            flex: 4;
+            display: flex;
+            padding: 5px;
+            > div{
+              flex: 1;
+              display: flex;
+              justify-content: center;
+
+              svg{
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @include for-size(phone-only){
+    &:last-child{
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.editCatContainer{
+   .modalHeader{
+     text-align: center;
+     color: $color-black;
+   }
+   .modalBody{
+      display: flex;
+      flex-direction: column;
+
+     .inputContainer{
+       margin-bottom: 2rem;
+       label {
+         font-size: 16px;
+         margin-bottom: 10px;
+         font-weight: 400;
+       }
+       input {
+         display: block;
+         width: 100%;
+         padding: 5px 10px;
+         font-size: 14px;
+         font-weight: 400;
+         line-height: 1.5;
+         color: #495057;
+         background-color: $color-white;
+         outline: none;
+         border: 1px solid #ced4da;
+         border-radius: .25rem;
+       }
+       input[type=color]{
+         padding: 5px;
+         width: 20%;
+         background-color: $color-light-grey-2;
+         height: 40px;
+       }
+     }
+
+    }
+    .btnContainer{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 4rem 0 1rem 0;
+      button{
+        width: 40%;
+      }
+    }
+}

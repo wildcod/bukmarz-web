@@ -26,6 +26,25 @@ export const navLinks = [
     }
 ]
 
+export const DASHBOARD_NAV_LINKS = [
+    {
+        displayName: 'Main',
+        link: '/main'
+    },
+    {
+        displayName: 'My dashboard',
+        link: '/'
+    },
+    {
+        displayName: 'Privacy',
+        link: '/privacy'
+    },
+    {
+        displayName: 'Offers',
+        link: '/offers'
+    }
+]
+
 export const plansColorScheme = [
     {
         titleColor: '#363636',

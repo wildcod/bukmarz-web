@@ -7,7 +7,7 @@ className,
 ...rest
 }) => {
     return (
-        <button {...rest} className={`${style.buttonContainer} ${className ? className : ''}`}>
+        <button {...rest} className={`${style.buttonContainer} ${className ? style[className] : ''}`}>
             {label}
         </button>
     );

@@ -6,7 +6,6 @@ import { MyDashboard, Offers, Main, Privacy } from './tabs'
 
 const Dashboard = () => {
     const location = useLocation()
-    console.log('location', location)
 
     const getTab = useCallback(() => {
         const tab = location?.search?.split('=')[1]

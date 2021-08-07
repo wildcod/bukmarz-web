@@ -69,6 +69,49 @@
 
     }
 
+    .userIcon{
+      position: relative;
+
+      img{
+        cursor: pointer;
+      }
+
+      .dropDown{
+        position: absolute;
+        right: -20px;
+        top: 3.5rem;
+        width: 20rem;
+        min-height: 100px;
+        border: 1px solid #f1f3f5;
+        background-color: $color-white;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);;
+
+        > ul{
+          padding: 0;
+          margin: 0;
+          list-style: none;
+
+          li > a{
+            cursor: pointer;
+            display: flex;
+            font-size: 16px;
+            align-items: center;
+            font-weight: 500;
+            line-height: 1.5rem;
+            padding: 1rem 1.5rem;
+            color: $color-black;
+          }
+
+          li:hover{
+            background-color: #f1f3f5;
+          }
+
+        }
+
+      }
+
+    }
+
   }
 
   .mobileNavLinks{
@@ -92,7 +135,7 @@
   }
 
   @include for-size(tablet-landscape-up){
-    padding: 2rem 10rem;
+    padding: 2rem 4rem;
 
     .container{
       flex-direction: row;

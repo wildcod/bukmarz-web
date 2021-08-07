@@ -4,17 +4,26 @@ import { navLinks } from '../../../constants'
 import Logo from '../../../assets/img/logo.png'
 import Menu from '../../../assets/img/menu.svg'
 import SideBar from "./side-bar/SideBar";
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, withRouter} from "react-router-dom";
 import Modal from '../../common/Modal/Modal'
 import Auth from "../../auth";
+import {connect} from 'react-redux'
+import {compose} from 'redux'
+import userIcon from '../../../assets/img/user_icon.svg'
+import {logOutUser} from '../../../redux/reducers/auth'
 
-const Header = ({ isLoggedIn = true }) => {
+const Header = ({ auth, logOutUser }) => {
     const [openMenu, setOpenMenu] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [showDropDown, setShowDropDown] = useState(false)
     const location = useLocation()
-    console.log('Location', location)
+
     const onCloseSideBar = () => {
         setOpenMenu(false)
+    }
+
+    const onClose = () => {
+        setOpenModal(false)
     }
 
     return (
@@ -42,7 +51,7 @@ const Header = ({ isLoggedIn = true }) => {
                              )))
                          }
                          {
-                           !isLoggedIn ?
+                           !auth.isAuthenticated ?
                                <li
                                    onClick={() => setOpenModal(true)}>Sign Up/Login</li> :
                                <li
@@ -56,6 +65,27 @@ const Header = ({ isLoggedIn = true }) => {
                      </ul>
                  </nav>
                </div>
+                {
+                    auth.isAuthenticated ?
+                        <div className={style.userIcon}>
+                            <img src={userIcon} onClick={() => setShowDropDown(!showDropDown)} alt={'user-icon'} width={30} height={30}/>
+                            {
+                                showDropDown ?
+                                    <div className={style.dropDown}>
+                                        <ul>
+                                            <li>
+                                                <a>Profile</a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    onClick={() => logOutUser()}
+                                                >Logout</a>
+                                            </li>
+                                        </ul>
+                                    </div> : null
+                            }
+                        </div> : null
+                }
             </div>
             {
                 openMenu ?
@@ -70,7 +100,7 @@ const Header = ({ isLoggedIn = true }) => {
                                     )))
                                 }
                                 {
-                                    !isLoggedIn ?
+                                    !auth.isAuthenticated ?
                                         <li onClick={() => setOpenModal(true)}>Sign Up/Login</li> :
                                         <li>
                                             <Link to={'/dashboard'} >
@@ -84,12 +114,19 @@ const Header = ({ isLoggedIn = true }) => {
             }
         <Modal
             openModal={openModal}
-            onClose={() => setOpenModal(false)}
+            onClose={onClose}
         >
-            <Auth />
+            <Auth onClose={onClose} />
         </Modal>
         </header>
     );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+    auth: state.auth
+})
+
+export default compose(
+    connect(mapStateToProps, {logOutUser}),
+    withRouter
+)(Header)

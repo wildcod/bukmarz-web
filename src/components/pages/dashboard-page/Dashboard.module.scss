@@ -50,7 +50,11 @@
   }
 
   .container{
-
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: auto;
+    min-width: 320px;
+    max-width: 1250px;
   }
 
 }

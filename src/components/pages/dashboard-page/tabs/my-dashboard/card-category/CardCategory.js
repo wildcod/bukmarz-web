@@ -10,10 +10,10 @@ import DeleteCat from "./category-actions/DeleteCat";
 import EditCat from "./category-actions/EditCat";
 import EditBookmark from "./bookmark-actions/EditBookmark";
 import DeleteBookmark from "./bookmark-actions/DeleteBookmark";
-const URL = "https://www.google.com/s2/favicons?domain=https://google.com"
+const BASE_URL = "https://www.google.com/s2/favicons?domain="
 
 
-const Bookmark = ({onModalHandler}) => {
+const Bookmark = ({onModalHandler, bookmark}) => {
     const [showDesc, setShowDesc] = useState(false)
 
     const onExpandHandler = () => {
@@ -24,11 +24,11 @@ const Bookmark = ({onModalHandler}) => {
         <li>
             <div className={s.left}>
                 <div className={s.bookmarkTitle}>
-                    <img src={URL} height={16} width={16} alt={'bookmark-icon'}/>
-                    <span>Faded</span>
+                    <img src={`${BASE_URL}${bookmark.url}`} height={16} width={16} alt={'bookmark-icon'}/>
+                    <span>{bookmark.name}</span>
                 </div>
                 {
-                    showDesc && <p>Description about bookmark</p>
+                    showDesc && <p>{bookmark.description}</p>
                 }
             </div>
             <div className={s.right}>
@@ -46,7 +46,11 @@ const Bookmark = ({onModalHandler}) => {
 
 
 
-const CardCategory = () => {
+const CardCategory = ({
+  category,
+  bookmarks,
+  auth
+}) => {
     const [isExpandCat, setIsExpandCat] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [activeModal, setActiveModal] = useState(MODAL.DELETE_CAT)
@@ -72,10 +76,13 @@ const CardCategory = () => {
                     <div>
                         <FaRegEye onClick={() => setIsExpandCat(!isExpandCat)} color={'#a3c93a'}/>
                     </div>
-                    <div className={s.title}><span>Music</span></div>
-                    {/*<div>*/}
-                    {/*    <FaShareAlt onClick={() => onModalHandler()} />*/}
-                    {/*</div>*/}
+                    <div className={s.title}><span>{category.title}</span></div>
+                    {
+                        auth.is_subscribed &&
+                            <div>
+                                <FaShareAlt onClick={() => onModalHandler()} />
+                            </div>
+                    }
                     <div>
                         <GrEdit color={'black'} onClick={() => onModalHandler(MODAL.EDIT_CAT)} />
                     </div>
@@ -86,7 +93,15 @@ const CardCategory = () => {
                 <Collapse isOpened={isExpandCat} hasNestedCollapse>
                     <div className={s.list}>
                         <ul>
-                           <Bookmark onModalHandler={onModalHandler}/>
+                            {
+                                bookmarks.map(bookmark => (
+                                    <Bookmark
+                                        key={bookmark.id}
+                                        bookmark={bookmark}
+                                        onModalHandler={onModalHandler}
+                                    />
+                                ))
+                            }
                         </ul>
                     </div>
                 </Collapse>

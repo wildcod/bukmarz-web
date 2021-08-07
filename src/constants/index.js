@@ -79,3 +79,5 @@ export const plansColorScheme = [
         btnTextColor: '#fff'
     },
 ]
+
+export const AUTH_TOKEN_COOKIE_NAME = '__HOST-BUKMARKZ_AUTH_TOKEN'

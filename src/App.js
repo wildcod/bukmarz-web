@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import HomePage from "./components/pages/home-page/HomePage";
 import Layout from "./components/common/layout/Layout";
 import {
@@ -12,8 +12,16 @@ import ServicesPage from "./components/pages/services-page/ServicesPage";
 import BlogPage from "./components/pages/blog-page/BlogPage";
 import ContactPage from "./components/pages/contact-page/ContactPage";
 import DashboardPage from "./components/pages/dashboard-page/Dashboard";
+import {initializeApp} from './redux/reducers/appReducer'
+import {connect} from 'react-redux'
+import {compose} from 'redux'
 
-function App() {
+function App({ initializeApp }) {
+
+  useEffect(() => {
+      initializeApp()
+  }, [])
+
   return (
    <Router>
        <div className="App">
@@ -33,4 +41,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    auth: state.auth.user,
+    initialized: state.app.initialized
+})
+
+export default compose(
+    connect(mapStateToProps, {initializeApp})
+)(App)

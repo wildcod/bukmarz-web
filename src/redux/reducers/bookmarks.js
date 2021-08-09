@@ -67,8 +67,10 @@ export const deleteBookmark = (id) => async (dispatch) => {
         await dashboardAPI.deleteBookmark(id)
         dispatch(actions.deleteBookmark(id))
         dispatch(createMessage({bookmarkDeleted: 'Bookmark Deleted'}))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 }
 
@@ -77,8 +79,10 @@ export const addBookmark = (body) => async (dispatch) => {
         let data = await dashboardAPI.saveBookmark(body)
         dispatch(createMessage({bookmarkAdded: 'Bookmark Added'}))
         dispatch(actions.addBookmark(data))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 }
 
@@ -87,8 +91,10 @@ export const updateBookmark = (body, id) => async (dispatch) => {
         let data = await dashboardAPI.updateBookmark(body, id)
         dispatch(createMessage({bookmarkUpdated: 'Bookmark Updated'}))
         dispatch(actions.updateBookmark(data))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 }
 

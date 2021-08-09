@@ -39,6 +39,59 @@
     flex: 5;
     padding: 2rem 1.5rem;
 
+    .header{
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      justify-content: space-between;
+      .actions{
+        display: flex;
+        flex: 1;
+        button {
+          margin: 5px 10px;
+          height: 35px;
+          color: #fff;
+          font-weight: 500;
+          transition: .2s;
+          text-align: center;
+          padding: .375rem .75rem;
+          font-size: 1.2rem;
+          line-height: 1.5;
+          border-radius: .25rem;
+        }
+      }
+      .searchBar{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex: 1;
+        input {
+          width: 80%;
+          float: right;
+          background: #e5e5e5;
+          outline: none;
+          border: 1px solid #f0f0f0;
+          box-sizing: border-box;
+          border-radius: 1rem;
+          height: 33px;
+          margin: 4px 10px 4px 0;
+          padding: 0 20px;
+          font-size: 14px;
+        }
+      }
+
+      @include for-size(phone-only){
+        flex-direction: column;
+
+        .searchBar input{
+          width: 100%;
+          margin: 10px
+        }
+
+      }
+
+    }
+
     .gridContainer{
       display: flex;
       flex-wrap: wrap;

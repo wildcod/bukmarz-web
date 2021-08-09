@@ -74,10 +74,11 @@ const Header = ({ auth, logOutUser }) => {
                                     <div className={style.dropDown}>
                                         <ul>
                                             <li>
-                                                <a>Profile</a>
+                                                <a href={'#'}>Profile</a>
                                             </li>
                                             <li>
                                                 <a
+                                                    href={'#'}
                                                     onClick={() => logOutUser()}
                                                 >Logout</a>
                                             </li>

@@ -83,8 +83,10 @@ export const deleteCategory = (id) => async (dispatch) => {
         await dashboardAPI.deleteCategory(id)
         dispatch(createMessage({categoryDeleted: 'category Deleted'}))
         dispatch(actions.deleteCategory(id))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 
 }
@@ -94,8 +96,10 @@ export const addCategory = (body) => async (dispatch) => {
         let data = await dashboardAPI.saveCategory(body)
         dispatch(createMessage({categoryAdded: 'Category Added'}))
         dispatch(actions.addCategory(data))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 }
 
@@ -104,8 +108,10 @@ export const updateCategory = (body, id) => async (dispatch) => {
         let data = await dashboardAPI.updateCategory(body, id)
         dispatch(createMessage({categoryUpdated: 'Category Updated'}))
         dispatch(actions.updateCategory(data))
+        return { ok: true }
     } catch (e) {
         dispatch(createError(e))
+        return { ok: false }
     }
 }
 
@@ -114,15 +120,19 @@ export const importBookmark = (body) => async (dispatch) => {
         let data = await dashboardAPI.importBookmarks(body)
         if (data === 'Can not open file') {
             dispatch(createMessage({fileNotValid: 'Can not open imported file'}))
+            return { ok : false }
         } else if (data === 'Too many bookmarks') {
             dispatch(createMessage({tooManyData: 'Your file contains to many categories or bookmarks. Upgrade to Premium'}))
+            return { ok : false }
         } else {
             dispatch(createMessage({bookmarkUploaded: `Bookmarks Uploaded Successfully`}))
             dispatch(actions.importBookmarks(data))
             dispatch(getBookmarks())
+            return { ok : true }
         }
     } catch (e) {
         console.log('Error', e);
         dispatch(createError(e))
+        return { ok : false }
     }
 }

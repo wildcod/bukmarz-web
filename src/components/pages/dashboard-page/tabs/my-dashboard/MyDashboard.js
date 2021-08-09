@@ -1,23 +1,48 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import s from './MyDashboard.module.scss'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import LeftPanel from "./left-panel/LeftPanel";
 import CardCategory from "./card-category/CardCategory";
-import categories, {addCategory, deleteCategory, getCategories, updateCategory} from '../../../../../redux/reducers/categories'
+import ReactDOMServer from 'react-dom/server'
+import { saveAs } from 'file-saver';
+import {
+    addCategory,
+    deleteCategory,
+    getCategories,
+    updateCategory,
+    importBookmark
+} from '../../../../../redux/reducers/categories'
 import {addBookmark, deleteBookmark, getBookmarks, updateBookmark} from '../../../../../redux/reducers/bookmarks'
 import {getUserSubscriptionDetails} from '../../../../../redux/reducers/auth'
 import { connect } from 'react-redux'
+import Button from "../../../../common/button/Button";
+import Modal from "../../../../common/Modal/Modal";
+import AddCategory from "./add-category/AddCategory";
+import ImportBookmarks from "./import-bookmarks/ImportBookmarks";
+const ADD_CAT_MODAL = 'ADD_CAT_MODAL'
+const IMPORT_MODAL = 'IMPORT_MODAL'
 
 const MyDashboard = ({
  subscriptions,
  userSubscription,
- categories,
+ categories: reduxCategories,
  getBookmarks,
  getUserSubscriptionDetails,
  getCategories,
- bookmarks,
- auth
+ bookmarks: reduxBookmarks,
+ auth,
+ isPrivate,
+ addCategory,
+ updateCategory,
+ deleteCategory,
+ deleteBookmark,
+ updateBookmark,
+ addBookmark,
+ importBookmark
 }) => {
+    const [currentActiveModal, setCurrentActiveModal] = useState('')
+    const [categories, setCategories] = useState(reduxCategories)
+    const [bookmarks, setBookmarks] = useState(reduxBookmarks)
 
     const {maxCategoriesStored, maxBookmarksInOneCategory} = useMemo(() => {
         let subscription
@@ -50,10 +75,90 @@ const MyDashboard = ({
                         key={category.id}
                         category={category}
                         auth={auth}
+                        isPrivate={isPrivate}
+                        updateCategory={updateCategory}
+                        deleteCategory={deleteCategory}
+                        deleteBookmark={deleteBookmark}
+                        updateBookmark={updateBookmark}
+                        addBookmark={addBookmark}
                         bookmarks={bookmarks.filter((book) => book.category === category.id)}
                     />
             ))
-    , [])
+    , [bookmarks])
+
+    const searchHandler = (e) => {
+        let currentList = []
+        let currentCategoriesList = []
+        let newBookmarkList = []
+        let newCategoryList = []
+        if (e.target.value !== '') {
+            currentCategoriesList = reduxCategories
+            currentList = reduxBookmarks
+            newBookmarkList = currentList.filter((bookmark) => {
+                let lc = ''
+                if (bookmark.name)
+                    lc = bookmark.name.toLowerCase()
+                const filter = e.target.value.toLowerCase()
+                let test1 = lc.includes(filter)
+                let description = ''
+                if (bookmark.description)
+                    description = bookmark.description.toLowerCase()
+                let test2 = description.includes(filter)
+                return test1 || test2
+            })
+            if(newBookmarkList && newBookmarkList.length){
+                const bookmarkListIds = newBookmarkList.map(item => item.category)
+                newCategoryList = currentCategoriesList.filter(cat => bookmarkListIds.includes(cat.id))
+            }
+        } else {
+            newCategoryList = reduxCategories
+            newBookmarkList = reduxBookmarks
+        }
+        setCategories(newCategoryList)
+        setBookmarks(newBookmarkList)
+    }
+
+    const exportBookmark = useCallback(() => {
+        if(categories && bookmarks && categories.length && bookmarks.length){
+            const categoriesList = ReactDOMServer.renderToStaticMarkup(categories.map(category => (
+                <dt key={category.id}>
+                    <h3>
+                        {category.title}
+                    </h3>
+                    <dl>
+                        {bookmarks.filter(b => b.category === category.id).map(b => (
+                            <dt>
+                                <a href={b.url} key={b.id}>{b.name}</a>
+                                <div className={'description'}>
+                                    {b.description}
+                                </div>
+                            </dt>
+                        ))}
+                    </dl>
+                </dt>
+            )))
+            const blob = new Blob([categoriesList], {
+                type: 'text/html;charset=utf-8'
+            })
+            saveAs(blob, 'Bookmark.html')
+        }
+    }, [categories, bookmarks])
+
+    const openModal = useCallback((active) => {
+        setCurrentActiveModal(active)
+    }, [])
+
+    const closeModal = useCallback(() => {
+        setCurrentActiveModal('')
+    }, [])
+
+    useEffect(() => {
+        if(categories !== reduxCategories){
+            setCategories(reduxCategories)
+        }if(bookmarks !== reduxBookmarks){
+            setBookmarks(reduxBookmarks)
+        }
+    }, [reduxCategories, reduxBookmarks])
 
     useEffect(() => {
         getCategories()
@@ -67,6 +172,29 @@ const MyDashboard = ({
                <LeftPanel />
            </div>
            <div className={s.right}>
+               <div className={s.header}>
+                   <div className={s.actions}>
+                       <Button
+                           onClick={() => openModal(ADD_CAT_MODAL)}
+                           label={'Add Category'}
+                       />
+                       <Button
+                           label={'Export'}
+                           onClick={exportBookmark}
+                       />
+                       <Button
+                           onClick={() => openModal(IMPORT_MODAL)}
+                           label={'Import'}
+                       />
+                   </div>
+                   <div className={s.searchBar}>
+                       <input
+                           type={'text'}
+                           placeholder={'Searching'}
+                           onChange={searchHandler}
+                       />
+                   </div>
+               </div>
                <div className={s.gridContainer}>
                    <div className={s.col}>
                        {categoriesColumn(firstColumnCategories)}
@@ -79,6 +207,24 @@ const MyDashboard = ({
                    </div>
                </div>
            </div>
+            <Modal
+                onClose={closeModal}
+                openModal={currentActiveModal.length > 0}
+            >
+                {
+                    currentActiveModal.length > 0 && currentActiveModal === ADD_CAT_MODAL ?
+                        <AddCategory
+                            auth={auth}
+                            isPrivate={isPrivate}
+                            addCategory={addCategory}
+                            closeModal={closeModal}
+                        /> :
+                        <ImportBookmarks
+                            importBookmark={importBookmark}
+                            closeModal={closeModal}
+                        />
+                }
+            </Modal>
         </div>
     );
 };
@@ -100,5 +246,6 @@ export default connect(mapStateToProps, {
     getBookmarks,
     updateBookmark,
     deleteBookmark,
+    importBookmark,
     getUserSubscriptionDetails,
 })(MyDashboard)

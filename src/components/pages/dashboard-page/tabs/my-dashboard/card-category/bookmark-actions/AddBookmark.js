@@ -2,16 +2,14 @@ import React, {useState} from 'react';
 import s from "../CardCategory.module.scss";
 import Button from "../../../../../../common/button/Button";
 
-const EditBookmark = ({
-  bookmark,
-  updateBookmark,
-  onClose,
-  categoryId
-}) => {
-    const [name, setName] = useState(bookmark.name)
-    const [url, setUrl] = useState(bookmark.url)
-    const [desc, setDesc] = useState(bookmark.description)
-
+const AddBookmark = ({
+     addBookmark,
+     onClose,
+     catId
+ }) => {
+    const [name, setName] = useState('')
+    const [url, setUrl] = useState('')
+    const [desc, setDesc] = useState('')
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -19,9 +17,10 @@ const EditBookmark = ({
             name,
             url,
             description: desc,
-            category: categoryId,
-        };
-        updateBookmark(data, bookmark.id)
+            category: catId
+        }
+        console.log('Data', data);
+        addBookmark(data)
             .then((res) => {
                 res.ok && onClose()
             })
@@ -29,14 +28,14 @@ const EditBookmark = ({
 
     return (
         <div className={s.editCatContainer}>
-            <h3 className={s.modalHeader}>Edit Bookmark</h3>
+            <h3 className={s.modalHeader}>Add Bookmark</h3>
             <form className={s.modalBody} onSubmit={onSubmit}>
                 <div className={s.inputContainer}>
                     <label>Name</label>
                     <input
                         type={'text'}
-                        value={name}
                         placeholder={'Name'}
+                        required
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
@@ -44,8 +43,8 @@ const EditBookmark = ({
                     <label>Url</label>
                     <input
                         type={'text'}
-                        value={url}
                         placeholder={'Url'}
+                        required
                         onChange={(e) => setUrl(e.target.value)}
                     />
                 </div>
@@ -53,17 +52,20 @@ const EditBookmark = ({
                     <label>Description</label>
                     <input
                         type={'text'}
-                        value={desc}
                         placeholder={'Description'}
+                        required
                         onChange={(e) => setDesc(e.target.value)}
                     />
                 </div>
                 <div className={s.btnContainer}>
-                    <Button label={'Update'} />
+                    <Button
+                        label={'Save'}
+                        type={'submit'}
+                    />
                 </div>
             </form>
         </div>
     );
 };
 
-export default EditBookmark;
+export default AddBookmark;

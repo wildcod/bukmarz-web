@@ -7,6 +7,7 @@ import AppReducer from './appReducer'
 import BookmarksReducer from './bookmarks'
 import SubscriptionsReducer from './subscriptions'
 import CategoriesReducer from './categories'
+import defaultDashboardReducer from './defaultDashboard'
 
 export default combineReducers({
     auth: AuthReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     app: AppReducer,
     bookmarks: BookmarksReducer,
     subscriptions: SubscriptionsReducer,
-    categories: CategoriesReducer
+    categories: CategoriesReducer,
+    defaultDashboard: defaultDashboardReducer
 })

@@ -17,7 +17,7 @@ const Dashboard = () => {
             case 'offers' :
                 return <Offers />
             default :
-                return <MyDashboard />
+                return <MyDashboard isPrivate={false}/>
         }
     }, [location])
 

@@ -10,10 +10,13 @@ import DeleteCat from "./category-actions/DeleteCat";
 import EditCat from "./category-actions/EditCat";
 import EditBookmark from "./bookmark-actions/EditBookmark";
 import DeleteBookmark from "./bookmark-actions/DeleteBookmark";
+import Button from "../../../../../common/button/Button";
+import AddCategory from "../add-category/AddCategory";
+import AddBookmark from "./bookmark-actions/AddBookmark";
 const BASE_URL = "https://www.google.com/s2/favicons?domain="
 
 
-const Bookmark = ({onModalHandler, bookmark}) => {
+const Bookmark = ({onModalHandler, bookmark, setSelectedBookmark}) => {
     const [showDesc, setShowDesc] = useState(false)
 
     const onExpandHandler = () => {
@@ -37,8 +40,24 @@ const Bookmark = ({onModalHandler, bookmark}) => {
                         <FcCollapse color={'black'} onClick={onExpandHandler} /> :
                         <FcExpand color={'black'} onClick={onExpandHandler} />}
                 </div>
-                <div><GrEdit color={'black'} onClick={() => onModalHandler(MODAL.EDIT_BOOKMARK)} /></div>
-                <div><FaRegTrashAlt color={'red'} onClick={() => onModalHandler(MODAL.DELETE_BOOKMARK)}  /></div>
+                <div>
+                    <GrEdit
+                      color={'black'}
+                      onClick={() => {
+                          setSelectedBookmark(bookmark)
+                          onModalHandler(MODAL.EDIT_BOOKMARK)
+                      }}
+                    />
+                  </div>
+                <div>
+                    <FaRegTrashAlt
+                        color={'red'}
+                        onClick={() => {
+                            setSelectedBookmark(bookmark)
+                            onModalHandler(MODAL.DELETE_BOOKMARK)
+                        }}
+                    />
+                </div>
             </div>
         </li>
     )
@@ -49,18 +68,58 @@ const Bookmark = ({onModalHandler, bookmark}) => {
 const CardCategory = ({
   category,
   bookmarks,
-  auth
+  auth,
+  updateCategory,
+  isPrivate,
+  deleteCategory,
+  addBookmark,
+  deleteBookmark,
+  updateBookmark
 }) => {
     const [isExpandCat, setIsExpandCat] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [activeModal, setActiveModal] = useState(MODAL.DELETE_CAT)
+    const [selectedBookmark, setSelectedBookmark] = useState({})
+
+    const onCloseModal = useCallback( () => {
+        setOpenModal(false)
+    }, [])
 
     const getComponent = useCallback(() => {
         switch (activeModal){
-            case MODAL.EDIT_CAT: return <EditCat />
-            case MODAL.DELETE_BOOKMARK : return <DeleteBookmark />
-            case MODAL.EDIT_BOOKMARK: return <EditBookmark />
-            default : return <DeleteCat />
+            case MODAL.EDIT_CAT:
+                return <EditCat
+                         category={category}
+                         isPrivate={isPrivate}
+                         auth={auth}
+                         onClose={onCloseModal}
+                         updateCategory={updateCategory}
+                        />
+            case MODAL.DELETE_BOOKMARK :
+                return <DeleteBookmark
+                           bookmarkId={selectedBookmark.id}
+                           deleteBookmark={deleteBookmark}
+                           onClose={onCloseModal}
+                        />
+            case MODAL.EDIT_BOOKMARK:
+                return <EditBookmark
+                           bookmark={selectedBookmark}
+                           updateBookmark={updateBookmark}
+                           onClose={onCloseModal}
+                           categoryId={category.id}
+                       />
+            case MODAL.ADD_BOOKMARK:
+                return <AddBookmark
+                            catId={category.id}
+                            addBookmark={addBookmark}
+                            onClose={onCloseModal}
+                       />
+            default :
+                return <DeleteCat
+                        catId={category.id}
+                        deleteCategory={deleteCategory}
+                        onClose={onCloseModal}
+                      />
         }
     }, [activeModal])
 
@@ -76,9 +135,9 @@ const CardCategory = ({
                     <div>
                         <FaRegEye onClick={() => setIsExpandCat(!isExpandCat)} color={'#a3c93a'}/>
                     </div>
-                    <div className={s.title}><span>{category.title}</span></div>
+                    <div className={s.title}><span>{category?.title}</span></div>
                     {
-                        auth.is_subscribed &&
+                        auth?.is_subscribed &&
                             <div>
                                 <FaShareAlt onClick={() => onModalHandler()} />
                             </div>
@@ -98,16 +157,23 @@ const CardCategory = ({
                                     <Bookmark
                                         key={bookmark.id}
                                         bookmark={bookmark}
+                                        setSelectedBookmark={setSelectedBookmark}
                                         onModalHandler={onModalHandler}
                                     />
                                 ))
                             }
                         </ul>
+                        {
+                         !bookmarks.length && <span>No bookmarks stored!</span>
+                        }
                     </div>
                 </Collapse>
             </div>
-            <div className={s.btnContainer}>
-
+            <div className={s.addBtnContainer}>
+                <Button
+                    label={'Add Bookmarks'}
+                    onClick={() => onModalHandler(MODAL.ADD_BOOKMARK)}
+                />
             </div>
             <Modal
                 openModal={openModal}

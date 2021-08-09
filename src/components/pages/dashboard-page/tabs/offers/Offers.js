@@ -3,8 +3,7 @@ import s from './Offers.module.scss'
 
 const Offers = () => {
     return (
-        <div>
-            Offers
+        <div className={s.offerContainer}>
         </div>
     );
 };

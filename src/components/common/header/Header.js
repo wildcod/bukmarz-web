@@ -10,6 +10,7 @@ import Auth from "../../auth";
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import userIcon from '../../../assets/img/user_icon.svg'
+
 import {logOutUser} from '../../../redux/reducers/auth'
 
 const Header = ({ auth, logOutUser }) => {

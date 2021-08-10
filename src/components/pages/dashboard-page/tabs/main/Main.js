@@ -11,7 +11,6 @@ import {
     getDefaultCategories
 } from '../../../../../redux/reducers/defaultDashboard'
 import {getCategories} from '../../../../../redux/reducers/categories'
-import bookmarks from "../../../../../redux/reducers/bookmarks";
 const URL = "https://www.google.com/s2/favicons?domain=https://google.com"
 
 const Bookmark = ({ bookmark }) => {

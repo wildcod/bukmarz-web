@@ -3,4 +3,11 @@
 
 .offerContainer{
   min-height: 500px;
+  padding: 2rem 0;
+
+  h4{
+    text-align: center;
+    color: $color-black;
+  }
+
 }

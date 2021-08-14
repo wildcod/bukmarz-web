@@ -39,6 +39,14 @@
     .navLinks{
       flex: 3;
 
+      nav{
+        display: flex;
+        align-items: center;
+        @include for-size(phone-only){
+          justify-content: flex-end;
+        }
+      }
+
       ul{
         display: flex;
         width: 100%;
@@ -61,10 +69,10 @@
           text-decoration: none;
         }
 
-      }
+        @include for-size(phone-only){
+          display: none;
+        }
 
-      @include for-size(phone-only){
-        display: none;
       }
 
     }

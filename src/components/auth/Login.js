@@ -5,10 +5,12 @@ import {withRouter} from "react-router-dom";
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import {loginUser} from '../../redux/reducers/auth'
+import { useHistory } from "react-router-dom";
 
 const Login = ({ onToggle, isLoading, loginUser, onClose, error }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const history = useHistory()
 
     const onSubmit = (e) => {
         console.log('CLICK')
@@ -17,6 +19,7 @@ const Login = ({ onToggle, isLoading, loginUser, onClose, error }) => {
             username, password
         }).then(() => {
             onClose()
+            history.push('/dashboard')
         })
     }
 

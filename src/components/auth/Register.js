@@ -55,10 +55,8 @@ const Register = ({ onToggle, isLoading, registerUser, error, onClose }) => {
     const isError = useMemo(() => {
         if(formError){
             return formError
-        } else if(error && error.msg){
-            return error.msg
         }else return null
-    }, [formError, error])
+    }, [formError])
 
     return (
         <div className={s.registerWrapper}>

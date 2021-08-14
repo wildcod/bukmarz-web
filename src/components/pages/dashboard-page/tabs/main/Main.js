@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import s from './Main.module.scss'
 import {FaRegEye, FaPlusCircle} from "react-icons/fa";
 import {Collapse} from "react-collapse";
@@ -11,14 +11,44 @@ import {
     getDefaultCategories
 } from '../../../../../redux/reducers/defaultDashboard'
 import {getCategories} from '../../../../../redux/reducers/categories'
+import Modal from '../../../../common/Modal/Modal'
+import Button from '../../../../common/button/Button'
 const URL = "https://www.google.com/s2/favicons?domain=https://google.com"
+const MAX_CAT = 5;
 
-const Bookmark = ({ bookmark }) => {
+const Bookmark = ({
+    bookmark,
+    addDefaultBookmarkToCategory,
+    categoryId,
+    categories
+}) => {
     const [showDesc, setShowDesc] = useState(false)
+    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [selectedCatId, setSelectedCatId] = useState(null)
 
     const onExpandHandler = () => {
         setShowDesc(!showDesc)
     }
+
+    const addToCategory = () => {
+        if(selectedCatId){
+            addDefaultBookmarkToCategory({
+                category: selectedCatId,
+                name: bookmark.name,
+                url: bookmark.url,
+                description: bookmark.description
+            })
+        }else{
+            alert('Select Category First')
+        }
+    }
+    console.log('selectedCatId',selectedCatId)
+    const options = useMemo(() => {
+        return categories.map((category) => (
+            {label: category.title, value: category.id}
+        ))
+    }, [categories])
+
     return (
         <li>
             <div className={s.left}>
@@ -38,17 +68,66 @@ const Bookmark = ({ bookmark }) => {
                         <FcExpand color={'black'} onClick={onExpandHandler} />}
                     </span>
                 </div>
-                <div><span className={s.wrap}><FaPlusCircle/></span></div>
+                <div>
+                    <span
+                        className={s.wrap}
+                        onClick={() => setIsOpenModal(true)}
+                    >
+                      <FaPlusCircle/>
+                   </span>
+                </div>
             </div>
+            <Modal
+                openModal={isOpenModal}
+                onClose={() => setIsOpenModal(false)}
+            >
+               <div className={s.addToCategoryContainer}>
+                  <h4>Add Bookmark</h4>
+                  <div className={s.input}>
+                      <select
+                          onChange={(e) => setSelectedCatId(e.target.value)}
+                      >
+                          {
+                              options.map(opt => (
+                                  <option key={opt.label} value={opt.value}>
+                                      {opt.label}
+                                  </option>
+                              ))
+                          }
+                      </select>
+                  </div>
+                   <div className={s.btnContainer}>
+                        <Button
+                            label={'ADD'}
+                            onClick={addToCategory}
+                        />
+                   </div>
+               </div>
+            </Modal>
         </li>
     )
 }
 
 const CategoryCard = ({
     category,
-    bookmarks
+    bookmarks,
+    categories,
+    totalCategories,
+    isSubscribed,
+    addCategoryToDashboard,
+    addDefaultBookmarkToCategory
 }) => {
     const [isExpandCat, setIsExpandCat] = useState(true);
+
+    const addToMyDashboard = () => {
+        console.log('CLick')
+        if (!isSubscribed && totalCategories === MAX_CAT) {
+            alert('Limit exceeded')
+            return
+        }
+        addCategoryToDashboard(category.id)
+    }
+
     return (
         <div className={s.card}>
             <div className={s.header}>
@@ -57,7 +136,7 @@ const CategoryCard = ({
                 </div>
                 <div className={s.title}><span>{category.title}</span></div>
                 <div>
-                    <span className={s.wrap}><FaPlusCircle/></span>
+                    <span className={s.wrap} onClick={addToMyDashboard}><FaPlusCircle/></span>
                 </div>
             </div>
             <Collapse isOpened={isExpandCat} hasNestedCollapse>
@@ -68,6 +147,9 @@ const CategoryCard = ({
                                 <Bookmark
                                     key={bookmark.id}
                                     bookmark={bookmark}
+                                    categoryId={category.id}
+                                    categories={categories}
+                                    addDefaultBookmarkToCategory={addDefaultBookmarkToCategory}
                                 />
                             ))
                         }
@@ -92,7 +174,7 @@ const Main = ({
     const firstColumnCategories = defaultCategories?.filter((category, index) => index % 3 === 0)
     const secondColumnCategories = defaultCategories?.filter((category, index) => index % 3 === 1)
     const thirdColumnCategories = defaultCategories?.filter((category, index) => index % 3 === 2)
-
+    console.log('Auth', auth)
     const defaultCategoriesColumn = (defaultCategories) => (
         <>
             {defaultCategories?.map((category) => (
@@ -104,7 +186,7 @@ const Main = ({
                         bookmarks={defaultBookmarks.filter((bookmark) => bookmark.category === category.id)}
                         addDefaultBookmarkToCategory={addDefaultBookmarkToCategory}
                         addCategoryToDashboard={addCategoryToDashboard}
-                        isSubscribed={auth.isSubscribed}
+                        isSubscribed={auth.is_subscribed}
                     />
             ))}
             </>

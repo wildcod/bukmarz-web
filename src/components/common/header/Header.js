@@ -4,7 +4,7 @@ import { navLinks } from '../../../constants'
 import Logo from '../../../assets/img/logo.png'
 import Menu from '../../../assets/img/menu.svg'
 import SideBar from "./side-bar/SideBar";
-import {Link, useLocation, withRouter} from "react-router-dom";
+import {Link, useHistory, useLocation, withRouter} from "react-router-dom";
 import Modal from '../../common/Modal/Modal'
 import Auth from "../../auth";
 import {connect} from 'react-redux'
@@ -18,6 +18,7 @@ const Header = ({ auth, logOutUser }) => {
     const [openModal, setOpenModal] = useState(false)
     const [showDropDown, setShowDropDown] = useState(false)
     const location = useLocation()
+    const history = useHistory()
 
     const onCloseSideBar = () => {
         setOpenMenu(false)
@@ -27,6 +28,11 @@ const Header = ({ auth, logOutUser }) => {
         setOpenModal(false)
     }
 
+    const logOutHandler = () => {
+        logOutUser()
+        history.push('/')
+    }
+
     return (
         <header className={style.headerWrapper}>
             <div className={style.container}>
@@ -34,10 +40,12 @@ const Header = ({ auth, logOutUser }) => {
                   <img src={Menu} onClick={() => setOpenMenu(true)} alt={'menu'} width={45} height={45} />
               </div>
                <div className={style.logo}>
-                   <img
-                       src={Logo}
-                       alt={'bukmarz-logo'}
-                   />
+                   <Link to={'/'}>
+                       <img
+                           src={Logo}
+                           alt={'bukmarz-logo'}
+                       />
+                   </Link>
                </div>
                <div className={style.navLinks}>
                  <nav>
@@ -64,30 +72,30 @@ const Header = ({ auth, logOutUser }) => {
                                </li>
                          }
                      </ul>
+                     {
+                         auth.isAuthenticated ?
+                             <div className={style.userIcon}>
+                                 <img src={userIcon} onClick={() => setShowDropDown(!showDropDown)} alt={'user-icon'} width={30} height={30}/>
+                                 {
+                                     showDropDown ?
+                                         <div className={style.dropDown}>
+                                             <ul>
+                                                 <li>
+                                                     <a href={'#'}>Profile</a>
+                                                 </li>
+                                                 <li>
+                                                     <a
+                                                         href={'#'}
+                                                         onClick={logOutHandler}
+                                                     >Logout</a>
+                                                 </li>
+                                             </ul>
+                                         </div> : null
+                                 }
+                             </div> : null
+                     }
                  </nav>
                </div>
-                {
-                    auth.isAuthenticated ?
-                        <div className={style.userIcon}>
-                            <img src={userIcon} onClick={() => setShowDropDown(!showDropDown)} alt={'user-icon'} width={30} height={30}/>
-                            {
-                                showDropDown ?
-                                    <div className={style.dropDown}>
-                                        <ul>
-                                            <li>
-                                                <a href={'#'}>Profile</a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href={'#'}
-                                                    onClick={() => logOutUser()}
-                                                >Logout</a>
-                                            </li>
-                                        </ul>
-                                    </div> : null
-                            }
-                        </div> : null
-                }
             </div>
             {
                 openMenu ?

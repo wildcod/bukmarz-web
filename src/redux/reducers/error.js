@@ -18,5 +18,5 @@ export default function (state = initialState, action) {
 }
 
 export  const createError = (err) => {
-    return {type: GET_ERRORS, payload: err}
+    return {type: GET_ERRORS, payload: err && err.message ? err.message : 'Something went wrong'}
 }

@@ -3,7 +3,7 @@
 
 .homeAboutUs{
   min-height: 586px;
-  background-color: $color-light-grey;
+  background-color: $color-light-grey-1;
 
   .innerContainer {
     display: flex;
@@ -20,7 +20,7 @@
       width: 50%;
       padding: 6%;
       max-width: 533px;
-      background-color: $color-black;
+      background-color: $color-dark-grey;
       min-height: 586px;
 
       h2 {
@@ -36,6 +36,11 @@
           line-height: 24px;
           font-weight: 300;
           color: $color-medium-grey-1;
+          margin: 20px 0;
+        }
+        p{
+          font-size: 14px;
+          line-height: 23px;
         }
       }
 

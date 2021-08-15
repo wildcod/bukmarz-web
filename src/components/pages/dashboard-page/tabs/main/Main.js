@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useMemo} from 'react';
 import s from './Main.module.scss'
 import {FaRegEye, FaPlusCircle} from "react-icons/fa";
-import {Collapse} from "react-collapse";
+import {Collapse} from "reactstrap";
 import {FcCollapse, FcExpand} from "react-icons/fc";
 import {connect} from 'react-redux'
 import {
@@ -56,9 +56,9 @@ const Bookmark = ({
                     <img src={URL} height={16} width={16} alt={'bookmark-icon'}/>
                     <span>{bookmark.name}</span>
                 </div>
-                {
-                    showDesc && <p>{bookmark.description}</p>
-                }
+                <Collapse isOpen={showDesc}>
+                    <p>{bookmark.description}</p>
+                </Collapse>
             </div>
             <div className={s.right}>
                 <div>
@@ -139,7 +139,7 @@ const CategoryCard = ({
                     <span className={s.wrap} onClick={addToMyDashboard}><FaPlusCircle/></span>
                 </div>
             </div>
-            <Collapse isOpened={isExpandCat} hasNestedCollapse>
+            <Collapse isOpen={isExpandCat}>
                 <div className={s.list}>
                     <ul>
                         {

@@ -104,15 +104,19 @@ const Header = ({ auth, logOutUser }) => {
                             <ul>
                                 {
                                     navLinks.map((link => (
-                                        <li className={link.displayName === 'Home' ? style.active : ''}>
-                                            {link.displayName}
+                                        <li
+                                            onClick={onCloseSideBar}
+                                            className={link.displayName === 'Home' ? style.active : ''}>
+                                           <Link to={link.link}>
+                                               {link.displayName}
+                                           </Link>
                                         </li>
                                     )))
                                 }
                                 {
                                     !auth.isAuthenticated ?
                                         <li onClick={() => setOpenModal(true)}>Sign Up/Login</li> :
-                                        <li>
+                                        <li onClick={onCloseSideBar}>
                                             <Link to={'/dashboard'} >
                                                 Dashboard
                                             </Link>

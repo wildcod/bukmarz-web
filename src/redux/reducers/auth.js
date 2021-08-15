@@ -141,10 +141,12 @@ export const loginUser = (body) => async (dispatch) => {
         dispatch(actions.setUser(data.user))
         dispatch(actions.setLoginSuccess(data))
         stopLoading(dispatch)
+        return { ok: true }
     } catch (e) {
         dispatch({type: LOGIN_FAIL})
         dispatch(createError(e))
         stopLoading(dispatch)
+        return { ok: false }
     }
 }
 

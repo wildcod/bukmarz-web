@@ -23,6 +23,11 @@
           letter-spacing: 0.5px;
           line-height: 17px;
         }
+        &.active a {
+          background-color: $color-dark-grey;
+          padding: 1rem;
+          border-radius: 10px;
+        }
       }
       @include for-size(phone-only){
         padding: 0;

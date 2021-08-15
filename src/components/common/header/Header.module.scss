@@ -54,7 +54,7 @@
         justify-content: space-evenly;
 
         li, li > a{
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 700;
           text-transform: uppercase;
           color: $color-medium-grey;
@@ -79,6 +79,7 @@
 
     .userIcon{
       position: relative;
+      margin-bottom: 1rem;
 
       img{
         cursor: pointer;

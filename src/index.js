@@ -4,6 +4,7 @@ import './index.css'
 import {Provider} from 'react-redux'
 import store from './redux/store'
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 if (module.hot && process.env.NODE_ENV !== 'production') {
     module.hot.accept()

@@ -337,6 +337,10 @@ blockquote + p {
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
+a{
+    text-decoration: none !important;
+}
+
 @media (max-width: 600px) {
     .overflow-hide {
         overflow: hidden;

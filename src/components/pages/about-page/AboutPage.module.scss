@@ -27,6 +27,7 @@
 
       .left{
         flex: 4;
+        min-height: 300px;
         background-color: $color-light-grey-1;
       }
 
@@ -43,6 +44,7 @@
 
         > p{
           padding-bottom: 15px;
+          font-size: 14px;
           line-height: 23px;
         }
 
@@ -78,10 +80,49 @@
           margin-bottom: 10px;
         }
         p{
-
+          font-size: 14px;
         }
       }
     }
 
   }
+
+  @include for-size(phone-only){
+    .main{
+
+      .heading{
+        h2{
+          font-size: 40px;
+          text-align: center;
+        }
+        p{
+          font-size: 20px;
+          line-height: 26px;
+          text-align: center;
+        }
+      }
+
+      .body{
+        flex-direction: column;
+
+        .left{
+          margin-bottom: 2rem;
+        }
+
+        .right{
+          padding: 0;
+        }
+
+      }
+
+      .gridContainer{
+        flex-direction: column;
+        .item {
+          padding: 0;
+        }
+      }
+
+    }
+  }
+
 }

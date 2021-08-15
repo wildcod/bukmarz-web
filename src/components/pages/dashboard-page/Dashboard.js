@@ -1,11 +1,13 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import s from './Dashboard.module.scss'
-import { Link, useLocation } from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {DASHBOARD_NAV_LINKS} from "../../../constants";
 import { MyDashboard, Offers, Main, Privacy } from './tabs'
+import auth from "../../../redux/reducers/auth";
 
-const Dashboard = () => {
+const Dashboard = ({auth}) => {
     const location = useLocation()
+    const history = useHistory()
 
     const getTab = useCallback(() => {
         const tab = location?.search?.split('=')[1]
@@ -21,13 +23,28 @@ const Dashboard = () => {
         }
     }, [location])
 
+    const activeTab = useMemo(() => {
+        const tab = location?.search?.split('=')[1]
+        if(!tab) return '/'
+        else return `/${tab}`
+    }, [location])
+
+    useEffect(() => {
+        if(!auth || !auth.isAuthenticated){
+            history.push('/')
+        }
+    }, [auth])
+
     return (
         <div className={s.dashBoardWrapper}>
             <div className={s.navBar}>
                 <ul>
                     {
                         DASHBOARD_NAV_LINKS.map(nav => (
-                            <li key={nav.link}>
+                            <li
+                                key={nav.link}
+                                className={activeTab === nav.link ? s.active : ''}
+                            >
                                 <Link to={`/dashboard${nav.link === '/' ? '' : `?tab=${nav.link.slice(1)}`}`}>
                                     {nav.displayName}
                                 </Link>

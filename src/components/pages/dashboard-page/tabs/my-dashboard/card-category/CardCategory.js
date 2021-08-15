@@ -3,7 +3,7 @@ import s from "./CardCategory.module.scss";
 import {FaRegEye, FaRegTrashAlt, FaShareAlt} from "react-icons/fa";
 import {FcExpand,FcCollapse } from "react-icons/fc";
 import {GrEdit} from "react-icons/gr";
-import { Collapse } from 'react-collapse';
+import {Collapse} from 'reactstrap'
 import Modal from "../../../../../common/Modal/Modal";
 import {MODAL} from "../../../../../../constants/modal";
 import DeleteCat from "./category-actions/DeleteCat";
@@ -30,33 +30,29 @@ const Bookmark = ({onModalHandler, bookmark, setSelectedBookmark}) => {
                     <img src={`${BASE_URL}${bookmark.url}`} height={16} width={16} alt={'bookmark-icon'}/>
                     <span>{bookmark.name}</span>
                 </div>
-                {
-                    showDesc && <p>{bookmark.description}</p>
-                }
+                <Collapse isOpen={showDesc}>
+                    <p>{bookmark.description}</p>
+                </Collapse>
             </div>
             <div className={s.right}>
-                <div>
+                <div onClick={onExpandHandler}>
                     {showDesc ?
-                        <FcCollapse color={'black'} onClick={onExpandHandler} /> :
-                        <FcExpand color={'black'} onClick={onExpandHandler} />}
+                        <FcCollapse color={'black'} /> :
+                        <FcExpand color={'black'} />}
                 </div>
-                <div>
-                    <GrEdit
-                      color={'black'}
-                      onClick={() => {
-                          setSelectedBookmark(bookmark)
-                          onModalHandler(MODAL.EDIT_BOOKMARK)
-                      }}
-                    />
+                <div
+                    onClick={() => {
+                    setSelectedBookmark(bookmark)
+                    onModalHandler(MODAL.EDIT_BOOKMARK)
+                }}>
+                    <GrEdit color={'black'} />
                   </div>
-                <div>
-                    <FaRegTrashAlt
-                        color={'red'}
-                        onClick={() => {
-                            setSelectedBookmark(bookmark)
-                            onModalHandler(MODAL.DELETE_BOOKMARK)
-                        }}
-                    />
+                <div
+                    onClick={() => {
+                    setSelectedBookmark(bookmark)
+                    onModalHandler(MODAL.DELETE_BOOKMARK)
+                }}>
+                    <FaRegTrashAlt color={'red'}/>
                 </div>
             </div>
         </li>
@@ -132,24 +128,24 @@ const CardCategory = ({
         <div className={s.cardCatWrapper}>
             <div className={s.body}>
                 <div className={s.header}>
-                    <div>
-                        <FaRegEye onClick={() => setIsExpandCat(!isExpandCat)} color={'#a3c93a'}/>
+                    <div onClick={() => setIsExpandCat(!isExpandCat)} className={isExpandCat ? s.active : ''}>
+                        <FaRegEye color={'#a3c93a'}/>
                     </div>
                     <div className={s.title}><span>{category?.title}</span></div>
                     {
                         auth?.is_subscribed &&
-                            <div>
-                                <FaShareAlt onClick={() => onModalHandler()} />
+                            <div onClick={() => onModalHandler()}>
+                                <FaShareAlt />
                             </div>
                     }
-                    <div>
-                        <GrEdit color={'black'} onClick={() => onModalHandler(MODAL.EDIT_CAT)} />
+                    <div onClick={() => onModalHandler(MODAL.EDIT_CAT)}>
+                        <GrEdit color={'black'} />
                     </div>
-                    <div>
-                        <FaRegTrashAlt color={'red'} onClick={() => onModalHandler(MODAL.DELETE_CAT)} />
+                    <div onClick={() => onModalHandler(MODAL.DELETE_CAT)}>
+                        <FaRegTrashAlt color={'red'}  />
                     </div>
                 </div>
-                <Collapse isOpened={isExpandCat} hasNestedCollapse>
+                <Collapse isOpen={isExpandCat}>
                     <div className={s.list}>
                         <ul>
                             {

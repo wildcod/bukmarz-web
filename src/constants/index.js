@@ -12,10 +12,10 @@ export const navLinks = [
         displayName: 'Services',
         link: '/services'
     },
-    {
-        displayName: 'Blog',
-        link: '/blog'
-    },
+    // {
+    //     displayName: 'Blog',
+    //     link: '/blog'
+    // },
     {
         displayName: 'Pricing',
         link: '/price'

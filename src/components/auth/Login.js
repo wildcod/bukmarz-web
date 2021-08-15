@@ -17,9 +17,11 @@ const Login = ({ onToggle, isLoading, loginUser, onClose, error }) => {
         e.preventDefault()
         loginUser({
             username, password
-        }).then(() => {
-            onClose()
-            history.push('/dashboard')
+        }).then((res) => {
+            if(res.ok){
+                onClose()
+                history.push('/dashboard')
+            }
         })
     }
 

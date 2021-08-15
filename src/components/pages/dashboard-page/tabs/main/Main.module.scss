@@ -39,6 +39,7 @@
           .title{
             flex: 6;
             justify-content: flex-start;
+            font-size: 14px;
             background-color: $color-primary-green;
             border-radius: 8px;
             padding: 4px 5px;
@@ -60,6 +61,12 @@
 
               > .left{
                 flex: 4;
+
+                p{
+                  font-size: 13px;
+                  padding-bottom: 0;
+                }
+
                 .bookmarkTitle{
                   display: flex;
                   align-items: center;
@@ -85,6 +92,11 @@
 
                   svg{
                     cursor: pointer;
+
+                    polygon{
+                      fill: $color-black
+                    }
+
                   }
                 }
               }
@@ -108,7 +120,9 @@
   .wrap{
     border: 1px solid $color-black;
     font-size: 10px;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     font-weight: 400;
     text-align: center;
     cursor: pointer;

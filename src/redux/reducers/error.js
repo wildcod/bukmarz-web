@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case GET_ERRORS:
             return {
-                msg: action.payload,
+                msg: action.payload.msg,
                 status: action.payload.status
             }
         default:
@@ -18,5 +18,18 @@ export default function (state = initialState, action) {
 }
 
 export  const createError = (err) => {
-    return {type: GET_ERRORS, payload: err && err.message ? err.message : 'Something went wrong'}
+    let errors = {}
+    try {
+        errors = {
+            msg: err.response.data,
+            status: err.response.status
+        }
+
+    } catch {
+        errors = {
+            msg: 'Something went wrong',
+            status: 500
+        }
+    }
+    return {type: GET_ERRORS, payload: errors}
 }

@@ -53,7 +53,7 @@ function App({ initializeApp, auth }) {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth.user,
+    auth: state.auth,
     initialized: state.app.initialized
 })
 

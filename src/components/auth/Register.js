@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 import { registerUser } from '../../redux/reducers/auth'
+import countryList from 'react-select-country-list'
 
 const Register = ({ onToggle, isLoading, registerUser, error, onClose }) => {
     const [username, setUsername] = useState('')
@@ -16,6 +17,7 @@ const Register = ({ onToggle, isLoading, registerUser, error, onClose }) => {
     const [country, setCountry] = useState('')
     const [formError, setFormErr] = useState('')
     const cookie = new Cookies()
+    const options = useMemo(() => countryList().getData(), [])
 
     const formValidation = useCallback((data) => {
         if(!data.country){
@@ -102,6 +104,14 @@ const Register = ({ onToggle, isLoading, registerUser, error, onClose }) => {
                         name={'country'}
                         required
                         onChange={(e) => setCountry(e.target.value)}>
+                        <option value={''}>Select a country</option>
+                        {
+                            options.map(o => (
+                                    <option key={o.value} value={o.value}>
+                                        {o.label}
+                                    </option>
+                                ))
+                        }
                         <option>Country</option>
                         <option>India</option>
                         <option>US</option>

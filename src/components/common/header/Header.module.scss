@@ -97,13 +97,14 @@
 
         > ul{
           padding: 0;
+          display: block;
           margin: 0;
           list-style: none;
 
           li > a{
             cursor: pointer;
             display: flex;
-            font-size: 16px;
+            font-size: 14px;
             align-items: center;
             font-weight: 500;
             line-height: 1.5rem;

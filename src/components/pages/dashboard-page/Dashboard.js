@@ -3,7 +3,6 @@ import s from './Dashboard.module.scss'
 import {Link, useHistory, useLocation} from "react-router-dom";
 import {DASHBOARD_NAV_LINKS} from "../../../constants";
 import { MyDashboard, Offers, Main, Privacy } from './tabs'
-import auth from "../../../redux/reducers/auth";
 
 const Dashboard = ({auth}) => {
     const location = useLocation()

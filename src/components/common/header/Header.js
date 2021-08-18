@@ -78,10 +78,14 @@ const Header = ({ auth, logOutUser }) => {
                                  <img src={userIcon} onClick={() => setShowDropDown(!showDropDown)} alt={'user-icon'} width={30} height={30}/>
                                  {
                                      showDropDown ?
+                                       <>
+                                         <div className={style.mask} onClick={() => setShowDropDown(!showDropDown)} />
                                          <div className={style.dropDown}>
                                              <ul>
                                                  <li>
-                                                     <a href={'#'}>Profile</a>
+                                                     <Link to={'/profile'}>
+                                                        Profile
+                                                     </Link>
                                                  </li>
                                                  <li>
                                                      <a
@@ -90,7 +94,8 @@ const Header = ({ auth, logOutUser }) => {
                                                      >Logout</a>
                                                  </li>
                                              </ul>
-                                         </div> : null
+                                         </div>
+                                         </> : null
                                  }
                              </div> : null
                      }

@@ -12,23 +12,29 @@ import ServicesPage from "./components/pages/services-page/ServicesPage";
 import BlogPage from "./components/pages/blog-page/BlogPage";
 import ContactPage from "./components/pages/contact-page/ContactPage";
 import DashboardPage from "./components/pages/dashboard-page/Dashboard";
+import ProfilePage from "./components/pages/profile-page/ProfilePage";
 import {initializeApp} from './redux/reducers/appReducer'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 import Alerts from '../src/components/common/alerts/Alerts'
 import {Provider as AlertProvider} from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import Spinner from "./components/common/spinner/Spinner";
 
 const alertOptions = {
     timeout: 5000,
     position: 'bottom center'
 }
 
-function App({ initializeApp, auth }) {
+function App({ initializeApp,initialized, auth }) {
 
   useEffect(() => {
       initializeApp()
   }, [])
+
+  if(!initialized){
+      return <Spinner />
+  }
 
   return (
    <Router>
@@ -44,6 +50,7 @@ function App({ initializeApp, auth }) {
                        <Route path={'/blog'}><BlogPage /></Route>
                        <Route path={'/contact'}><ContactPage /></Route>
                        <Route path={'/dashboard'}><DashboardPage auth={auth}/></Route>
+                       <Route path={'/profile'}><ProfilePage /></Route>
                    </Switch>
                </Layout>
            </AlertProvider>

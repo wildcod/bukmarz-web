@@ -190,7 +190,7 @@ const MyDashboard = ({
                    <div className={s.searchBar}>
                        <input
                            type={'text'}
-                           placeholder={'Searching'}
+                           placeholder={'Search'}
                            onChange={searchHandler}
                        />
                    </div>

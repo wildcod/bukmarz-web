@@ -9,6 +9,7 @@ import SubscriptionsReducer from './subscriptions'
 import CategoriesReducer from './categories'
 import defaultDashboardReducer from './defaultDashboard'
 import privateDashboardReducer from './privateDashboard'
+import referralsReducer from './referrals'
 
 export default combineReducers({
     auth: AuthReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
     subscriptions: SubscriptionsReducer,
     categories: CategoriesReducer,
     defaultDashboard: defaultDashboardReducer,
-    privateDashboard: privateDashboardReducer
+    privateDashboard: privateDashboardReducer,
+    referrals: referralsReducer
 })

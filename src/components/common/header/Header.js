@@ -30,6 +30,7 @@ const Header = ({ auth, logOutUser }) => {
 
     const logOutHandler = () => {
         logOutUser()
+        setShowDropDown(!showDropDown)
         history.push('/')
     }
 
@@ -83,7 +84,7 @@ const Header = ({ auth, logOutUser }) => {
                                          <div className={style.dropDown}>
                                              <ul>
                                                  <li>
-                                                     <Link to={'/profile'}>
+                                                     <Link to={'/profile?tab=profile'} onClick={() => setShowDropDown(!showDropDown)}>
                                                         Profile
                                                      </Link>
                                                  </li>

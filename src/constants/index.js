@@ -81,3 +81,27 @@ export const plansColorScheme = [
 ]
 
 export const AUTH_TOKEN_COOKIE_NAME = '__HOST-BUKMARKZ_AUTH_TOKEN'
+
+export const BG_IMAGES = [
+    {
+        id: 1,
+        url: "https://i.ibb.co/qDD94jB/anas-alshanti-fe-Xpd-V001o4-unsplash.jpg",
+    },
+    {
+        id: 2,
+        url: "https://i.ibb.co/sjNvhZk/796854.jpg",
+    },
+    {
+        id: 3,
+        url: "https://i.ibb.co/m0DF5PF/alex-iby-La-Ho9-Set3b-I-unsplash.jpg",
+    },
+    {
+        id: 4,
+        url:
+            "https://i.ibb.co/vwngzJr/you-make-my-heart-smile-wallpaper-1280x720.jpg",
+    },
+    {
+        id: 5,
+        url: "https://i.ibb.co/GtLS7jR/you-and-me-2-wallpaper-1280x720.jpg",
+    },
+];
